@@ -1,13 +1,23 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  process.env.TZ = '-03:00';
+  const config = new DocumentBuilder()
+  .setTitle('Projeto Hackathon')
+  .setDescription('Projeto Hackathon')
+  .setContact('Hackathon', 'www.hackathon.com', 'grupo1@gmail.com')
+  .setVersion('1.0')
+  .addBearerAuth()
+  .build()
+  const document = SwaggerModule.createDocument(app,config)
+  SwaggerModule.setup('/swagger', app, document)
 
-  app.useGlobalPipes(new ValidationPipe());
+  process.env.TZ = '-03:00';
+  app.useGlobalPipes(new ValidationPipe())
   app.enableCors()
   await app.listen( process.env.PORT || 4000);
 }

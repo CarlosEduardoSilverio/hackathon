@@ -20,7 +20,21 @@ import { TurmaModule } from './turma/turma.module';
       database: 'db_projetohackathon',
       entities: [Turma, Grupo, Projeto],
       synchronize: true
-    }),TurmaModule, GrupoModule, ProjetoModule
+    }),
+    // TypeOrmModule.forRoot({
+    //   type: 'postgres',
+    //   url: process.env.DATABASE_URL,
+    //   logging: false,
+    //   dropSchema: false,
+    //   ssl: {
+    //     rejectUnauthorized: false,
+    //   },
+    //   synchronize: true,
+    //   autoLoadEntities: true,
+    // }),
+    TurmaModule, 
+    GrupoModule, 
+    ProjetoModule
   ],
   controllers: [AppController],
   providers: [AppService],
